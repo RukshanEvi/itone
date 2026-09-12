@@ -1,0 +1,395 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 220 14% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 14% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 14% 15%;
+
+    --primary: 0 72% 51%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 14% 15%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    --accent: 0 72% 96%;
+    --accent-foreground: 0 72% 45%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 0 72% 51%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 0 72% 51%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 0 72% 51%;
+
+    /* Custom glassmorphism variables */
+    --glass-bg: 0 0% 100% / 0.8;
+    --glass-border: 0 0% 100% / 0.3;
+    --glass-shadow: 231 38% 32% / 0.1;
+
+    /* Decorative background system — consumed only by BackgroundDecor.tsx.
+       Every red tone is derived from --primary, never hard-coded. */
+    --decor-canvas: 12 38% 98%;
+    --decor-dot: 0 10% 64%;
+    --decor-veil: 0 0% 100%;
+    /* Deepens the solid --primary surfaces (header and footer). Neutral so it
+       enriches whatever hue --primary carries instead of shifting it. */
+    --decor-shade: 0 0% 0%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 0 72% 51%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 0 72% 51%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 0 72% 51%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 0 72% 51%;
+
+    --glass-bg: 222 84% 5% / 0.8;
+    --glass-border: 217 33% 18% / 0.5;
+    --glass-shadow: 0 0% 0% / 0.3;
+
+    --decor-canvas: 222 84% 5%;
+    --decor-dot: 0 14% 72%;
+    --decor-veil: 222 84% 5%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-card/80 backdrop-blur-md border border-border/30 shadow-lg;
+  }
+
+  .glass-subtle {
+    @apply bg-card/90 backdrop-blur-sm border border-border/20 shadow-md;
+  }
+}
+
+/* Decorative background layers.
+   Rendered only inside BackgroundDecor.tsx, always behind content and aria-hidden.
+   Pure CSS gradients — no image assets, no animation. */
+@layer utilities {
+  /* Layer 1 — warm off-white canvas */
+  .decor-canvas {
+    background-color: hsl(var(--decor-canvas));
+  }
+
+  /* Layer 2 — soft pink/red glow, weighted toward the upper area */
+  .decor-glow {
+    background-image:
+      radial-gradient(58rem 32rem at 14% -8%, hsl(var(--primary) / 0.17), transparent 62%),
+      radial-gradient(44rem 26rem at 92% 2%, hsl(var(--primary) / 0.11), transparent 60%),
+      radial-gradient(64rem 38rem at 52% 108%, hsl(var(--primary) / 0.08), transparent 66%);
+  }
+
+  /* Layer 3 — halftone dot field, faded to nothing at the edges by a radial mask */
+  .decor-halftone {
+    background-image: radial-gradient(hsl(var(--decor-dot) / 0.5) 1.2px, transparent 1.3px);
+    background-size: 20px 20px;
+    -webkit-mask-image: radial-gradient(ellipse 78% 62% at 46% 40%, #000 0%, #000 38%, transparent 78%);
+    mask-image: radial-gradient(ellipse 78% 62% at 46% 40%, #000 0%, #000 38%, transparent 78%);
+  }
+
+  /* Layer 4 — centre highlight; adds depth and lifts contrast under body copy */
+  .decor-veil {
+    background-image: radial-gradient(
+      72rem 46rem at 50% 44%,
+      hsl(var(--decor-veil) / 0.62),
+      hsl(var(--decor-veil) / 0) 70%
+    );
+  }
+
+  /* Layer 6 — footer depth, on top of the solid --primary block.
+     The footer's text is white on --primary, which is only just over AA, so
+     the composition is built almost entirely from layers that *deepen* the
+     ground (contrast-positive) rather than light it. */
+  .decor-footer-depth {
+    background-image:
+      /* deeper red pooling into the lower corners — echoes the diagonal of the
+         hero sweep without repeating the shape */
+      radial-gradient(58rem 34rem at 88% 116%, hsl(var(--decor-shade) / 0.30), transparent 62%),
+      radial-gradient(46rem 28rem at 6% 110%, hsl(var(--decor-shade) / 0.22), transparent 60%),
+      /* edge vignette. Centred above the top edge so that edge stays pure
+         --primary and meets <FooterCurve /> without a seam. */
+      radial-gradient(150% 115% at 50% -12%, transparent 56%, hsl(var(--decor-shade) / 0.20) 100%);
+  }
+
+  /* Halftone, echoing the hero's dot field so the footer reads as part of the
+     same composition, faded out well before the copyright row.
+
+     The mask peaks *below* the top edge rather than on it: the curve above the
+     footer carries no dots, so a mask that starts at full strength there draws
+     a visible horizontal line where the texture begins. */
+  .decor-footer-dots {
+    background-image: radial-gradient(hsl(var(--primary-foreground) / 0.15) 1px, transparent 1.1px);
+    background-size: 20px 20px;
+    -webkit-mask-image: radial-gradient(ellipse 95% 55% at 50% 18%, #000 0%, transparent 88%);
+    mask-image: radial-gradient(ellipse 95% 55% at 50% 18%, #000 0%, transparent 88%);
+  }
+
+  /* Layer 7 — header depth. Same material and the same darken-only rule as the
+     footer, but composed for a wide, short bar: the footer's corner pooling
+     resolves to nothing across ~88px of height, so this works the two axes the
+     header actually has — its bottom edge and its far ends. */
+  .decor-header-depth {
+    background-image:
+      /* Grounds the bar and firms up its edge against the page beneath.
+         Anchored in px, not %, because the header changes height — 96px at
+         rest, 80px scrolled, several hundred with the mobile menu open — and a
+         percentage band would thicken with it. */
+      linear-gradient(to bottom, transparent calc(100% - 44px), hsl(var(--decor-shade) / 0.18) 100%),
+      /* frames the content by deepening the far left and right ends */
+      radial-gradient(115% 220% at 50% 0%, transparent 58%, hsl(var(--decor-shade) / 0.14) 100%);
+  }
+
+  /* Same halftone as the footer, so the two brand bars read as one material.
+     Falls off downward and toward both ends, which keeps the texture clear of
+     the nav links and off the bottom edge. */
+  .decor-header-dots {
+    /* Fainter than the footer's 0.15. The header is on screen permanently and
+       only ~90px tall, so the whole bar sits in the dense part of the mask —
+       the same alpha that reads as texture in a 441px block reads as pattern
+       here. */
+    background-image: radial-gradient(hsl(var(--primary-foreground) / 0.10) 1px, transparent 1.1px);
+    background-size: 20px 20px;
+    -webkit-mask-image: radial-gradient(ellipse 72% 150% at 50% -10%, #000 0%, transparent 82%);
+    mask-image: radial-gradient(ellipse 72% 150% at 50% -10%, #000 0%, transparent 82%);
+  }
+
+  /* Mobile: tighten the dot grid and calm the glow so the composition
+     reads at a narrow width without competing with content. */
+  @media (max-width: 767px) {
+    .decor-header-dots {
+      background-size: 17px 17px;
+      -webkit-mask-image: radial-gradient(ellipse 86% 150% at 50% -10%, #000 0%, transparent 82%);
+      mask-image: radial-gradient(ellipse 86% 150% at 50% -10%, #000 0%, transparent 82%);
+    }
+
+    .decor-footer-dots {
+      background-size: 17px 17px;
+      -webkit-mask-image: radial-gradient(ellipse 120% 34% at 50% 12%, #000 0%, transparent 88%);
+      mask-image: radial-gradient(ellipse 120% 34% at 50% 12%, #000 0%, transparent 88%);
+    }
+
+    .decor-halftone {
+      background-size: 17px 17px;
+      background-image: radial-gradient(hsl(var(--decor-dot) / 0.4) 1px, transparent 1.1px);
+      -webkit-mask-image: radial-gradient(ellipse 92% 46% at 50% 30%, #000 0%, #000 26%, transparent 74%);
+      mask-image: radial-gradient(ellipse 92% 46% at 50% 30%, #000 0%, #000 26%, transparent 74%);
+    }
+
+    .decor-glow {
+      background-image:
+        radial-gradient(28rem 20rem at 6% -6%, hsl(var(--primary) / 0.15), transparent 64%),
+        radial-gradient(24rem 18rem at 100% 4%, hsl(var(--primary) / 0.09), transparent 62%);
+    }
+  }
+}
+
+/* Scroll animations */
+@layer utilities {
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.5s ease-out forwards;
+  }
+  
+  .animate-slide-left {
+    animation: slideLeft 0.6s ease-out forwards;
+  }
+  
+  .animate-slide-right {
+    animation: slideRight 0.6s ease-out forwards;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Hero globe motion (HeroGlobe.tsx). Small, cheap effects only: a pulse of
+   light travelling each network arc, rings pulsing out of the hubs, and the
+   orbit's dashes drifting round. The globe itself does not turn: its land is
+   ~1,500 dots in precomputed paths, and rotating it would mean re-projecting
+   every dot every frame. Under prefers-reduced-motion the pulses are hidden
+   and the orbit holds still. */
+@keyframes globe-flow {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes globe-pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+@keyframes globe-orbit {
+  to {
+    stroke-dashoffset: -90;
+  }
+}
+
+.globe-flow {
+  stroke-dasharray: 7 93;
+  animation: globe-flow 3.2s linear infinite;
+}
+
+.globe-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: globe-pulse 2.6s ease-out infinite;
+}
+
+.globe-orbit {
+  stroke-dasharray: 2 7;
+  animation: globe-orbit 14s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .globe-flow,
+  .globe-pulse {
+    animation: none;
+    opacity: 0;
+  }
+
+  .globe-orbit {
+    animation: none;
+  }
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
