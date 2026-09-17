@@ -140,7 +140,7 @@ export const WhyChooseSection = () => {
               stays inside the grid at every width. */}
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 rotate-90 lg:rotate-0 select-none whitespace-nowrap text-[length:min(100vw,18rem)] lg:text-[length:min(33.8vw,42rem)] font-extrabold leading-none tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-primary/[0.05] to-transparent [-webkit-text-stroke:1.5px_hsl(var(--primary)/0.2)] lg:[-webkit-text-stroke-width:2px]"
+            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 rotate-90 lg:rotate-0 select-none whitespace-nowrap text-[length:min(100vw,18rem)] lg:text-[length:min(33.8vw,42rem)] font-extrabold leading-none tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-primary/[0.03] to-transparent [-webkit-text-stroke:1.5px_hsl(var(--primary)/0.12)] lg:[-webkit-text-stroke-width:2px]"
           >
             ITONE
           </span>
