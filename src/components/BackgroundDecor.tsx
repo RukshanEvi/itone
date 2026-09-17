@@ -9,10 +9,9 @@
  *
  * Layering (back to front):
  *   1. warm off-white canvas          .decor-canvas
- *   2. soft pink/red glow, upper area .decor-glow
- *   3. centre highlight for depth     .decor-veil
- *   4. faded halftone dot field       .decor-halftone
- *   5. brand bars + curve             <HeaderBackdrop /> / <FooterBackdrop />
+ *   2. centre highlight for depth     .decor-veil
+ *   3. faded halftone dot field       .decor-halftone
+ *   4. brand bars + curve           <HeaderBackdrop /> / <FooterBackdrop />
  *                                     / <FooterCurve />
  *
  * All layers are inert: aria-hidden and pointer-events-none.
@@ -32,7 +31,6 @@ export const GlobalBackground = () => (
     className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
   >
     <div className="absolute inset-0 decor-canvas" />
-    <div className="absolute inset-0 decor-glow" />
     {/* Veil sits *under* the dot field — above it, it washes the dots out */}
     <div className="absolute inset-0 decor-veil" />
     <div className="absolute inset-0 decor-halftone" />

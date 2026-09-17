@@ -14,7 +14,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Decorative background: canvas, glow, halftone dots, depth.
+      {/* Decorative background: canvas, halftone dots, depth.
           The page base colour comes from `body` (index.css) so this stays
           transparent — an opaque background here would paint over the
           negative-z decorative layer and hide it. */}

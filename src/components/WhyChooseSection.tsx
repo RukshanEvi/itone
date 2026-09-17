@@ -67,7 +67,7 @@ const stats = [
 ];
 
 // Glass surface with a 3D feel, shared by every card in this section:
-// translucent white over the page's glow, blurred, lit along the top edge,
+// translucent white over the page background, blurred, lit along the top edge,
 // shaded along the bottom, and lifted by layered shadows. The ::before sheen
 // sits behind the card content because of `isolate` plus `before:-z-10`.
 const glassCard = [
@@ -140,7 +140,7 @@ export const WhyChooseSection = () => {
               stays inside the grid at every width. */}
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 rotate-90 lg:rotate-0 select-none whitespace-nowrap text-[length:min(100vw,18rem)] lg:text-[length:min(33.8vw,42rem)] font-extrabold leading-none tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-primary/[0.03] to-transparent [-webkit-text-stroke:1.5px_hsl(var(--primary)/0.12)] lg:[-webkit-text-stroke-width:2px]"
+            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 rotate-90 lg:rotate-0 select-none whitespace-nowrap text-[length:min(100vw,18rem)] lg:text-[length:min(33.8vw,42rem)] font-extrabold leading-none tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-primary/[0.02] to-transparent [-webkit-text-stroke:1.5px_hsl(var(--primary)/0.08)] lg:[-webkit-text-stroke-width:2px]"
           >
             ITONE
           </span>
