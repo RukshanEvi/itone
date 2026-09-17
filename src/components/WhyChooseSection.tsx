@@ -66,12 +66,31 @@ const stats = [
   { value: "80+", label: "Operators Served" },
 ];
 
+// Glass surface with a 3D feel, shared by every card in this section:
+// translucent white over the page's glow, blurred, lit along the top edge,
+// shaded along the bottom, and lifted by layered shadows. The ::before sheen
+// sits behind the card content because of `isolate` plus `before:-z-10`.
+const glassCard = [
+  "relative isolate overflow-hidden rounded-2xl",
+  "border border-card/60",
+  "bg-gradient-to-br from-card/65 via-card/45 to-card/30",
+  "backdrop-blur-md backdrop-saturate-150 md:backdrop-blur-xl",
+  "shadow-[inset_0_1px_0_0_hsl(var(--card)/0.95),inset_0_-1px_0_0_hsl(var(--foreground)/0.06),0_1px_2px_0_hsl(var(--foreground)/0.06),0_10px_20px_-8px_hsl(var(--foreground)/0.12),0_28px_56px_-20px_hsl(var(--primary)/0.18)]",
+  "before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:-z-10 before:h-1/2 before:bg-gradient-to-b before:from-card/60 before:to-transparent before:content-['']",
+].join(" ");
+
+// Deeper lift for the cards that react to hover.
+const glassCardHover = [
+  "hover:border-primary/30 hover:bg-card/30",
+  "hover:shadow-[inset_0_1px_0_0_hsl(var(--card)/0.95),inset_0_-1px_0_0_hsl(var(--foreground)/0.06),0_2px_4px_0_hsl(var(--foreground)/0.06),0_16px_28px_-10px_hsl(var(--foreground)/0.16),0_36px_64px_-22px_hsl(var(--primary)/0.26)]",
+].join(" ");
+
 export const WhyChooseSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="why-itone" className="py-16 md:py-24 relative">
+    <section id="why-itone" className="py-16 md:py-24 relative overflow-x-clip">
       <div className="container mx-auto px-4">
         {/* Header */}
         <motion.div
@@ -106,7 +125,26 @@ export const WhyChooseSection = () => {
         </motion.div>
 
         {/* Main content - Two column layout */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-12 md:mb-16">
+        <div className="relative grid lg:grid-cols-2 gap-8 lg:gap-12 mb-12 md:mb-16">
+          {/* Brand wordmark behind the cards, for the glass to blur: crisp in the
+              gaps, frosted under the cards. Centred on this grid, so it stays clear
+              of the heading above and the stats row below.
+              Styled as a quiet outline: a thin --primary stroke over a barely there
+              fill, with slightly open tracking so the outlines do not crowd.
+              lg and up: the vw size makes the word span the full screen width,
+              capped at 42rem so on very wide screens the letters do not grow tall
+              enough to reach the heading or stats. The section's overflow-x-clip
+              trims the scrollbar's worth of overhang.
+              Below lg the cards stack full width and would hide a horizontal word,
+              so it runs vertically down the stack, capped at 18rem so its length
+              stays inside the grid at every width. */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 rotate-90 lg:rotate-0 select-none whitespace-nowrap text-[length:min(100vw,18rem)] lg:text-[length:min(33.8vw,42rem)] font-extrabold leading-none tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-primary/[0.05] to-transparent [-webkit-text-stroke:1.5px_hsl(var(--primary)/0.2)] lg:[-webkit-text-stroke-width:2px]"
+          >
+            ITONE
+          </span>
+
           {/* Left - Team & values */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -117,7 +155,7 @@ export const WhyChooseSection = () => {
             {story.map(({ icon: Icon, title, description }) => (
               <div
                 key={title}
-                className="flex-1 p-6 md:p-8 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50"
+                className={`${glassCard} flex-1 p-6 md:p-8`}
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -125,7 +163,7 @@ export const WhyChooseSection = () => {
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-foreground">{title}</h3>
                 </div>
-                <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
+                <p className="text-foreground/80 leading-relaxed text-sm md:text-base">
                   {description}
                 </p>
               </div>
@@ -146,13 +184,13 @@ export const WhyChooseSection = () => {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="group p-4 md:p-5 rounded-xl bg-card/30 backdrop-blur-sm border border-border/50 hover:border-primary/30 hover:bg-card/50 transition-all duration-300"
+                className={`${glassCard} ${glassCardHover} group p-4 md:p-5 transition-all duration-300`}
               >
                 <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
                   <value.icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                 </div>
                 <h4 className="font-semibold text-foreground text-sm md:text-base mb-1">{value.title}</h4>
-                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+                <p className="text-xs md:text-sm text-foreground/80 leading-relaxed">
                   {value.description}
                 </p>
               </motion.div>
@@ -174,12 +212,12 @@ export const WhyChooseSection = () => {
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
               whileHover={{ scale: 1.03 }}
-              className="text-center p-4 md:p-6 rounded-xl bg-card/40 backdrop-blur-sm border border-border/50 hover:border-primary/30 transition-all duration-300"
+              className={`${glassCard} ${glassCardHover} text-center p-4 md:p-6 transition-all duration-300`}
             >
               <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-primary to-primary/70 mb-1">
                 {stat.value}
               </div>
-              <div className="text-xs md:text-sm text-muted-foreground">{stat.label}</div>
+              <div className="text-xs md:text-sm text-foreground/75">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
